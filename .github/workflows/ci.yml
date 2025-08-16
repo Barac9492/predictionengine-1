@@ -1,0 +1,168 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9, 3.10.0, 3.11]
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov flake8 black
+    
+    - name: Lint with flake8
+      run: |
+        # Stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    
+    - name: Check code formatting with black
+      run: |
+        black --check --diff .
+    
+    - name: Run basic import tests
+      run: |
+        python -c "
+        try:
+            from features.data_ingestion.pipeline import build_dataset
+            from features.modeling.predictor import EnsemblePredictor
+            from features.trading_decision.guidance import TradingGuidanceEngine
+            from features.proxy_discovery.discovery import ProxyDiscoveryEngine
+            from app.main_engine import GeniusPredictionEngine
+            print('✓ All imports successful')
+        except Exception as e:
+            print(f'✗ Import failed: {e}')
+            exit(1)
+        "
+    
+    - name: Run test suite
+      run: |
+        python test_engine.py
+    
+    - name: Test prediction generation
+      run: |
+        python -c "
+        import sys
+        import os
+        sys.path.append(os.getcwd())
+        from app.main_engine import GeniusPredictionEngine
+        
+        try:
+            engine = GeniusPredictionEngine(enable_rl=False, enable_feedback=False, log_level='ERROR')
+            status = engine.get_system_status()
+            print(f'✓ System status: {status[\"components\"][\"prediction_engine\"]}')
+            engine.shutdown()
+        except Exception as e:
+            print(f'✗ Engine test failed: {e}')
+            exit(1)
+        "
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+    
+    - name: Install security tools
+      run: |
+        pip install bandit safety
+    
+    - name: Run security scan with bandit
+      run: |
+        bandit -r . -f json -o bandit-report.json || true
+    
+    - name: Check for known vulnerabilities
+      run: |
+        safety check --json || true
+
+  performance:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install memory-profiler
+    
+    - name: Run performance tests
+      run: |
+        python -c "
+        import time
+        import sys
+        import os
+        sys.path.append(os.getcwd())
+        
+        start_time = time.time()
+        from app.main_engine import GeniusPredictionEngine
+        import_time = time.time() - start_time
+        
+        print(f'Import time: {import_time:.2f}s')
+        if import_time > 10:
+            print('⚠ Warning: Import time is high')
+        else:
+            print('✓ Import performance acceptable')
+        "
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Check documentation
+      run: |
+        # Check if README exists and has minimum content
+        if [ ! -f README.md ]; then
+          echo "✗ README.md missing"
+          exit 1
+        fi
+        
+        # Check for required sections
+        if ! grep -q "# 🤖 Genius Prediction Engine" README.md; then
+          echo "✗ README missing title"
+          exit 1
+        fi
+        
+        if ! grep -q "Quick Start" README.md; then
+          echo "✗ README missing Quick Start section"
+          exit 1
+        fi
+        
+        echo "✓ Documentation checks passed"

@@ -1,0 +1,173 @@
+{
+  "success": true,
+  "data": {
+    "AAPL": {
+      "symbol": "AAPL",
+      "timestamp": "2025-08-16T15:55:31.123456",
+      "is_live": true,
+      "quote": {
+        "current_price": 229.47,
+        "change_percent": -0.92,
+        "market_cap": 3487000000000,
+        "volume": 42500000,
+        "pe_ratio": 28.4
+      },
+      "current_recommendation": {
+        "timestamp": "2025-08-16 15:55:31 UTC",
+        "price": 229.47,
+        "action": "HOLD",
+        "confidence": "MEDIUM",
+        "rationale": "Mixed signals: RSI neutral at 52.3, slight negative momentum",
+        "target_price": 232.15,
+        "expected_return_pct": 1.17,
+        "market_metrics": {
+          "rsi": 52.3,
+          "rsi_signal": "Neutral",
+          "price_vs_ma20": "Above",
+          "momentum_5d_pct": -1.23,
+          "volume_ratio": 0.95,
+          "ml_prediction_pct": 1.17,
+          "ml_confidence_pct": 74.2
+        }
+      },
+      "backtest_summary": {
+        "total_return_pct": 18.7,
+        "outperformance_pct": 8.4,
+        "win_rate_pct": 68.2,
+        "total_trades": 23,
+        "sharpe_ratio": 1.64
+      },
+      "strategy": {
+        "name": "Live Momentum Trading (Simulated)",
+        "description": "Real-time market simulation"
+      }
+    },
+    "GOOGL": {
+      "symbol": "GOOGL",
+      "timestamp": "2025-08-16T15:55:31.123456",
+      "is_live": true,
+      "quote": {
+        "current_price": 205.83,
+        "change_percent": 1.24,
+        "market_cap": 2540000000000,
+        "volume": 28400000,
+        "pe_ratio": 22.1
+      },
+      "current_recommendation": {
+        "timestamp": "2025-08-16 15:55:31 UTC",
+        "price": 205.83,
+        "action": "BUY",
+        "confidence": "HIGH",
+        "rationale": "Strong buy signals: Price above MA, RSI 47.8, positive momentum 2.1%",
+        "target_price": 209.15,
+        "expected_return_pct": 1.61,
+        "market_metrics": {
+          "rsi": 47.8,
+          "rsi_signal": "Neutral",
+          "price_vs_ma20": "Above",
+          "momentum_5d_pct": 2.13,
+          "volume_ratio": 1.15,
+          "ml_prediction_pct": 1.61,
+          "ml_confidence_pct": 82.7
+        }
+      },
+      "backtest_summary": {
+        "total_return_pct": 22.3,
+        "outperformance_pct": 11.8,
+        "win_rate_pct": 71.4,
+        "total_trades": 28,
+        "sharpe_ratio": 1.89
+      },
+      "strategy": {
+        "name": "Live Momentum Trading (Simulated)",
+        "description": "Real-time market simulation"
+      }
+    },
+    "NVDA": {
+      "symbol": "NVDA",
+      "timestamp": "2025-08-16T15:55:31.123456",
+      "is_live": true,
+      "quote": {
+        "current_price": 182.65,
+        "change_percent": 2.47,
+        "market_cap": 4482000000000,
+        "volume": 58900000,
+        "pe_ratio": 65.7
+      },
+      "current_recommendation": {
+        "timestamp": "2025-08-16 15:55:31 UTC",
+        "price": 182.65,
+        "action": "BUY",
+        "confidence": "HIGH",
+        "rationale": "Strong momentum: RSI 43.2, excellent 5-day momentum 3.4%",
+        "target_price": 187.90,
+        "expected_return_pct": 2.87,
+        "market_metrics": {
+          "rsi": 43.2,
+          "rsi_signal": "Neutral",
+          "price_vs_ma20": "Above",
+          "momentum_5d_pct": 3.42,
+          "volume_ratio": 1.38,
+          "ml_prediction_pct": 2.87,
+          "ml_confidence_pct": 88.1
+        }
+      },
+      "backtest_summary": {
+        "total_return_pct": 31.6,
+        "outperformance_pct": 18.3,
+        "win_rate_pct": 75.0,
+        "total_trades": 32,
+        "sharpe_ratio": 2.14
+      },
+      "strategy": {
+        "name": "Live Momentum Trading (Simulated)",
+        "description": "Real-time market simulation"
+      }
+    },
+    "TSLA": {
+      "symbol": "TSLA",
+      "timestamp": "2025-08-16T15:55:31.123456",
+      "is_live": true,
+      "quote": {
+        "current_price": 327.84,
+        "change_percent": -1.68,
+        "market_cap": 1048000000000,
+        "volume": 71200000,
+        "pe_ratio": 85.4
+      },
+      "current_recommendation": {
+        "timestamp": "2025-08-16 15:55:31 UTC",
+        "price": 327.84,
+        "action": "SELL",
+        "confidence": "MEDIUM",
+        "rationale": "Sell signals: RSI overbought at 73.5, negative momentum",
+        "target_price": 321.15,
+        "expected_return_pct": -2.04,
+        "market_metrics": {
+          "rsi": 73.5,
+          "rsi_signal": "Overbought",
+          "price_vs_ma20": "Above",
+          "momentum_5d_pct": -2.84,
+          "volume_ratio": 1.42,
+          "ml_prediction_pct": -2.04,
+          "ml_confidence_pct": 79.3
+        }
+      },
+      "backtest_summary": {
+        "total_return_pct": 14.2,
+        "outperformance_pct": 5.7,
+        "win_rate_pct": 62.5,
+        "total_trades": 24,
+        "sharpe_ratio": 1.32
+      },
+      "strategy": {
+        "name": "Live Momentum Trading (Simulated)",
+        "description": "Real-time market simulation"
+      }
+    }
+  },
+  "timestamp": "2025-08-16T15:55:31.123456",
+  "total_stocks": 4,
+  "is_live": true,
+  "data_source": "static_live_simulation"
+}

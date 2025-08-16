@@ -761,9 +761,26 @@
                 }
             }
             
-            // If all live APIs fail, try stored results
+            // If all live APIs fail, try static live data, then stored results
             try {
-                console.log('All live APIs failed, trying stored results...');
+                console.log('All live APIs failed, trying static live data...');
+                const staticResponse = await fetch('/live_data.json');
+                
+                if (staticResponse.ok) {
+                    const staticData = await staticResponse.json();
+                    if (staticData.success && staticData.data) {
+                        liveData = staticData.data;
+                        displayLiveData(true, 'SIMULATED');
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.log('Static live data failed:', error.message);
+            }
+            
+            // Try stored historical results
+            try {
+                console.log('Trying stored historical results...');
                 const fileResponse = await fetch('/active_trading_results_20250816_155531.json');
                 
                 if (fileResponse.ok) {

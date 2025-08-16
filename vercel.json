@@ -10,6 +10,10 @@
       "dest": "/public/predictions.html"
     },
     {
+      "src": "/api/live_data",
+      "dest": "/api/live_data.py"
+    },
+    {
       "src": "/active_trading_results_20250816_155531.json",
       "dest": "/active_trading_results_20250816_155531.json"
     },
@@ -27,6 +31,10 @@
     }
   ],
   "builds": [
+    {
+      "src": "api/live_data.py",
+      "use": "@vercel/python"
+    },
     {
       "src": "api/index.py",
       "use": "@vercel/python"

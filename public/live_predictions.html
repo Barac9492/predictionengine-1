@@ -699,23 +699,39 @@
             document.getElementById('content').style.display = 'none';
 
             try {
-                // Try to load the latest results file
-                const response = await fetch('/active_trading_results_20250816_155531.json');
+                // First try to fetch real-time data from API
+                console.log('Fetching live market data...');
+                const apiResponse = await fetch('/api/live_data');
                 
-                if (!response.ok) {
-                    throw new Error('Could not load live data');
+                if (apiResponse.ok) {
+                    const apiData = await apiResponse.json();
+                    if (apiData.success) {
+                        console.log('Live API data received:', apiData);
+                        liveData = apiData.data;
+                        displayLiveData(true); // Mark as live
+                        return;
+                    }
                 }
-
-                liveData = await response.json();
-                displayLiveData();
+                
+                // Fallback to stored results
+                console.log('API failed, trying stored results...');
+                const fileResponse = await fetch('/active_trading_results_20250816_155531.json');
+                
+                if (fileResponse.ok) {
+                    liveData = await fileResponse.json();
+                    displayLiveData(false); // Mark as historical
+                    return;
+                }
+                
+                throw new Error('Could not load any data');
 
             } catch (error) {
-                console.error('Error loading live data:', error);
+                console.error('Error loading data:', error);
                 // Show error and load demo data
                 document.getElementById('loading').innerHTML = `
                     <div class="error">
                         <h3>❌ Could not load live data</h3>
-                        <p>Showing demo data instead. Check console for details.</p>
+                        <p>API: ${error.message}. Loading demo data...</p>
                         <button class="refresh-btn" onclick="loadLiveData()">🔄 Try Again</button>
                     </div>
                 `;
@@ -727,7 +743,7 @@
             }
         }
 
-        function displayLiveData() {
+        function displayLiveData(isLive = false) {
             if (!liveData) {
                 console.error('No live data available');
                 return;
@@ -740,7 +756,17 @@
             // Update last updated time
             const timestamps = Object.values(liveData).map(d => d.timestamp);
             const latestTimestamp = timestamps.sort().pop();
-            lastUpdatedElement.textContent = `Last Updated: ${formatTimestamp(latestTimestamp)} • Live Market Data`;
+            const dataType = isLive ? '🔴 LIVE Market Data' : '📊 Historical Analysis';
+            lastUpdatedElement.textContent = `Last Updated: ${formatTimestamp(latestTimestamp)} • ${dataType}`;
+            
+            // Add live indicator
+            if (isLive) {
+                lastUpdatedElement.style.background = '#dcfce7';
+                lastUpdatedElement.style.color = '#16a34a';
+            } else {
+                lastUpdatedElement.style.background = '#e3f2fd';
+                lastUpdatedElement.style.color = '#1976d2';
+            }
 
             // Create stock cards
             stocksContainer.innerHTML = Object.keys(liveData)
@@ -753,6 +779,14 @@
             // Show content
             document.getElementById('loading').style.display = 'none';
             document.getElementById('content').style.display = 'block';
+            
+            // Auto-refresh live data every 5 minutes
+            if (isLive) {
+                setTimeout(() => {
+                    console.log('Auto-refreshing live data...');
+                    loadLiveData();
+                }, 300000); // 5 minutes
+            }
         }
 
         function loadDemoData() {

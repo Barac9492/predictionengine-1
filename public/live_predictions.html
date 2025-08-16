@@ -732,8 +732,8 @@
             document.getElementById('loading').style.display = 'block';
             document.getElementById('content').style.display = 'none';
 
-            // Try multiple live API endpoints
-            const liveEndpoints = ['/api/live_data', '/api/live', '/api/mock_live'];
+            // Try multiple live API endpoints (simple first, then more complex)
+            const liveEndpoints = ['/api/simple_live', '/api/mock_live', '/api/live', '/api/live_data'];
             
             for (const endpoint of liveEndpoints) {
                 try {
@@ -748,7 +748,9 @@
                         if (apiData.success && apiData.data) {
                             console.log('✅ Live API data received from:', endpoint);
                             liveData = apiData.data;
-                            displayLiveData(true, endpoint.includes('mock') ? 'SIMULATED' : 'LIVE');
+                            const dataType = endpoint.includes('simple_live') ? 'SIMULATED' : 
+                                           endpoint.includes('mock') ? 'SIMULATED' : 'LIVE';
+                            displayLiveData(true, dataType);
                             return;
                         }
                     }

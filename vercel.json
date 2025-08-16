@@ -22,6 +22,10 @@
       "dest": "/api/mock_live.py"
     },
     {
+      "src": "/api/simple_live",
+      "dest": "/api/simple_live.py"
+    },
+    {
       "src": "/active_trading_results_20250816_155531.json",
       "dest": "/active_trading_results_20250816_155531.json"
     },
@@ -45,6 +49,14 @@
     },
     {
       "src": "api/live_data.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "api/mock_live.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "api/simple_live.py",
       "use": "@vercel/python"
     },
     {

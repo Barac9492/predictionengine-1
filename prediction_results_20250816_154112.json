@@ -1,0 +1,190 @@
+{
+  "AAPL": {
+    "timestamp": "2025-08-16T15:41:11.348861",
+    "current_prediction": {
+      "action": "Hold",
+      "rationale": "Mixed or weak signals, moderate confidence at 50.0%",
+      "current_price": 231.59,
+      "predicted_change_percent": 0.24,
+      "predicted_price": 232.14,
+      "confidence": 50.0,
+      "volatility": 1.85
+    },
+    "backtest_results": {
+      "period": "1 Year",
+      "total_return": 0.0,
+      "buy_and_hold_return": 4.94,
+      "outperformance": -4.94,
+      "sharpe_ratio": 0.0,
+      "win_rate": 0.0,
+      "max_drawdown": 0.0,
+      "total_trades": 0
+    },
+    "features_summary": {
+      "total_features": 22,
+      "top_features": [
+        {
+          "name": "ma_ratio",
+          "importance": 0.0988377666940751
+        },
+        {
+          "name": "ma_5",
+          "importance": 0.08930181805467877
+        },
+        {
+          "name": "Close",
+          "importance": 0.08084678965201239
+        },
+        {
+          "name": "bb_lower",
+          "importance": 0.07887063462970682
+        },
+        {
+          "name": "Low",
+          "importance": 0.07850153571464337
+        }
+      ]
+    }
+  },
+  "GOOGL": {
+    "timestamp": "2025-08-16T15:41:11.892420",
+    "current_prediction": {
+      "action": "Hold",
+      "rationale": "Mixed or weak signals, moderate confidence at 50.0%",
+      "current_price": 203.9,
+      "predicted_change_percent": -0.71,
+      "predicted_price": 202.46,
+      "confidence": 50.0,
+      "volatility": 1.34
+    },
+    "backtest_results": {
+      "period": "1 Year",
+      "total_return": 0.0,
+      "buy_and_hold_return": 27.76,
+      "outperformance": -27.76,
+      "sharpe_ratio": 0.0,
+      "win_rate": 0.0,
+      "max_drawdown": 0.0,
+      "total_trades": 0
+    },
+    "features_summary": {
+      "total_features": 22,
+      "top_features": [
+        {
+          "name": "momentum_5d",
+          "importance": 0.09312135215857624
+        },
+        {
+          "name": "cloud_adoption_rate",
+          "importance": 0.08264797175667735
+        },
+        {
+          "name": "momentum_20d",
+          "importance": 0.08069337270153895
+        },
+        {
+          "name": "Close",
+          "importance": 0.0644308022658395
+        },
+        {
+          "name": "Low",
+          "importance": 0.06287672758577444
+        }
+      ]
+    }
+  },
+  "NVDA": {
+    "timestamp": "2025-08-16T15:41:12.500240",
+    "current_prediction": {
+      "action": "Hold",
+      "rationale": "Mixed or weak signals, moderate confidence at 67.9%",
+      "current_price": 180.45,
+      "predicted_change_percent": 0.66,
+      "predicted_price": 181.63,
+      "confidence": 67.9,
+      "volatility": 1.56
+    },
+    "backtest_results": {
+      "period": "1 Year",
+      "total_return": 0.0,
+      "buy_and_hold_return": 52.87,
+      "outperformance": -52.87,
+      "sharpe_ratio": 0.0,
+      "win_rate": 0.0,
+      "max_drawdown": 0.0,
+      "total_trades": 0
+    },
+    "features_summary": {
+      "total_features": 23,
+      "top_features": [
+        {
+          "name": "datacenter_investment",
+          "importance": 0.08587985570566066
+        },
+        {
+          "name": "Volume",
+          "importance": 0.07388827965387706
+        },
+        {
+          "name": "momentum_5d",
+          "importance": 0.07170059334183318
+        },
+        {
+          "name": "volume_ratio",
+          "importance": 0.06968851267016289
+        },
+        {
+          "name": "Close",
+          "importance": 0.06798483033128762
+        }
+      ]
+    }
+  },
+  "TSLA": {
+    "timestamp": "2025-08-16T15:41:12.925938",
+    "current_prediction": {
+      "action": "Hold",
+      "rationale": "Mixed or weak signals, moderate confidence at 50.0%",
+      "current_price": 330.56,
+      "predicted_change_percent": 0.42,
+      "predicted_price": 331.94,
+      "confidence": 50.0,
+      "volatility": 2.74
+    },
+    "backtest_results": {
+      "period": "1 Year",
+      "total_return": 0.0,
+      "buy_and_hold_return": 64.15,
+      "outperformance": -64.15,
+      "sharpe_ratio": 0.0,
+      "win_rate": 0.0,
+      "max_drawdown": 0.0,
+      "total_trades": 0
+    },
+    "features_summary": {
+      "total_features": 23,
+      "top_features": [
+        {
+          "name": "volume_ratio",
+          "importance": 0.08981354278288493
+        },
+        {
+          "name": "bb_lower",
+          "importance": 0.07385418285891107
+        },
+        {
+          "name": "Low",
+          "importance": 0.06794037616505577
+        },
+        {
+          "name": "Close",
+          "importance": 0.06672939152125322
+        },
+        {
+          "name": "volatility",
+          "importance": 0.0666117362022291
+        }
+      ]
+    }
+  }
+}

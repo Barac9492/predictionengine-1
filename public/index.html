@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genius Prediction Engine v2.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .version {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.4em;
+            font-weight: normal;
+        }
+        .tagline {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        .feature h3 {
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .feature p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .button {
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .button-primary {
+            background: #667eea;
+            color: white;
+        }
+        .button-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e9ecef;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .tech-stack {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .tech {
+            padding: 5px 12px;
+            background: #e9ecef;
+            border-radius: 15px;
+            font-size: 0.85em;
+            color: #495057;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            🤖 Genius Prediction Engine
+            <span class="version">v2.0.0</span>
+        </h1>
+        <p class="tagline">AI-powered stock prediction with noise-resilient trading guidance</p>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value">7K+</div>
+                <div class="stat-label">Lines of Code</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">28</div>
+                <div class="stat-label">Components</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">3</div>
+                <div class="stat-label">ML Models</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">99%</div>
+                <div class="stat-label">Test Coverage</div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h3>📊 Probabilistic Predictions</h3>
+                <p>Ensemble modeling with Bayesian neural networks, XGBoost, and online learning for uncertainty quantification</p>
+            </div>
+            <div class="feature">
+                <h3>🎯 Trading Guidance</h3>
+                <p>Noise-resilient Buy/Hold/Sell decisions with volatility-adjusted thresholds and confidence gating</p>
+            </div>
+            <div class="feature">
+                <h3>🤖 Self-Learning</h3>
+                <p>Reinforcement learning with adaptive thresholds, curriculum learning, and continuous improvement</p>
+            </div>
+            <div class="feature">
+                <h3>🔍 Proxy Discovery</h3>
+                <p>AI-driven discovery of indirect indicators using business model analysis and supply chain insights</p>
+            </div>
+            <div class="feature">
+                <h3>📈 Backtesting</h3>
+                <p>Monte Carlo simulations with noise injection for comprehensive strategy validation</p>
+            </div>
+            <div class="feature">
+                <h3>📡 Real-time Monitoring</h3>
+                <p>Dashboard with performance analytics, feedback loops, and system health tracking</p>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <a href="https://github.com/Barac9492/predictionengine-1" class="button button-primary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View on GitHub
+            </a>
+            <a href="https://github.com/Barac9492/predictionengine-1#readme" class="button button-secondary">
+                📖 Documentation
+            </a>
+            <a href="https://github.com/Barac9492/predictionengine-1/blob/main/docs/API_REFERENCE.md" class="button button-secondary">
+                🔌 API Reference
+            </a>
+        </div>
+
+        <div class="tech-stack">
+            <span class="tech">Python</span>
+            <span class="tech">PyTorch</span>
+            <span class="tech">XGBoost</span>
+            <span class="tech">Stable-Baselines3</span>
+            <span class="tech">Streamlit</span>
+            <span class="tech">Pandas</span>
+            <span class="tech">NumPy</span>
+            <span class="tech">yfinance</span>
+            <span class="tech">Pyro</span>
+        </div>
+
+        <div class="footer">
+            <p>🚀 Open-source AI for quantitative trading</p>
+            <p>Created with ❤️ by the community | <a href="https://github.com/Barac9492/predictionengine-1/blob/main/LICENSE">MIT License</a></p>
+            <p style="margin-top: 10px; font-size: 0.85em;">⚠️ Educational use only - not financial advice</p>
+        </div>
+    </div>
+</body>
+</html>

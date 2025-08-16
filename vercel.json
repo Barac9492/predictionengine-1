@@ -2,8 +2,16 @@
   "version": 2,
   "routes": [
     {
+      "src": "/live",
+      "dest": "/public/live_predictions.html"
+    },
+    {
       "src": "/predictions",
       "dest": "/public/predictions.html"
+    },
+    {
+      "src": "/active_trading_results_20250816_155531.json",
+      "dest": "/active_trading_results_20250816_155531.json"
     },
     {
       "src": "/api/(.*)",
@@ -25,6 +33,10 @@
     },
     {
       "src": "public/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.json",
       "use": "@vercel/static"
     }
   ]

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Sentiment Analysis Dashboard - Genius Prediction Engine</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .header {
+            background: rgba(255,255,255,0.95);
+            padding: 20px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .research-badge {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .methodology-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .method-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .method-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .weight-indicator {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 6px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        
+        .stocks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .stock-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stock-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .stock-symbol {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stock-price {
+            text-align: right;
+        }
+        
+        .current-price {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .target-price {
+            font-size: 1.1em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .action-badge {
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .action-strong-buy { background: #dcfce7; color: #16a34a; }
+        .action-buy { background: #ecfdf5; color: #22c55e; }
+        .action-hold { background: #f3f4f6; color: #6b7280; }
+        .action-sell { background: #fee2e2; color: #dc2626; }
+        .action-strong-sell { background: #fecaca; color: #b91c1c; }
+        
+        .analysis-tabs {
+            display: flex;
+            border-bottom: 2px solid #f1f5f9;
+            margin: 20px 0;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            border-bottom-color: #667eea;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+            margin-top: 20px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .sentiment-section {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .headlines-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .headline-item {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 8px;
+            background: white;
+            border-left: 4px solid #e5e7eb;
+        }
+        
+        .headline-positive { border-left-color: #10b981; }
+        .headline-negative { border-left-color: #ef4444; }
+        .headline-neutral { border-left-color: #6b7280; }
+        
+        .sentiment-score {
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        
+        .score-positive { background: #dcfce7; color: #16a34a; }
+        .score-negative { background: #fee2e2; color: #dc2626; }
+        .score-neutral { background: #f3f4f6; color: #6b7280; }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .metric-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 0.9em;
+            color: #6b7280;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: white;
+        }
+        
+        .loading-spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .disclaimer {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .stocks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .methodology-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧠 LLM Sentiment Analysis Dashboard</h1>
+        <p class="subtitle">Advanced Stock Prediction with AI-Powered News Sentiment</p>
+        <div class="research-badge">
+            📊 Based on "Can ChatGPT Forecast Stock Price Movements?" Research
+        </div>
+    </div>
+    
+    <div class="container">
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <h2>Loading Sentiment-Enhanced Analysis...</h2>
+            <p>Analyzing news headlines with LLM technology</p>
+        </div>
+        
+        <div id="content" style="display: none;">
+            <div class="methodology-section">
+                <h2>🔬 Research-Based Methodology</h2>
+                <p>This system combines three analytical approaches based on academic research in financial prediction:</p>
+                
+                <div class="methodology-grid">
+                    <div class="method-card">
+                        <h4>📰 LLM Sentiment Analysis</h4>
+                        <div class="weight-indicator" style="width: 30%;"></div>
+                        <p>Weight: 30%</p>
+                        <p>Uses ChatGPT/Grok-style prompts to analyze news headlines and determine market sentiment</p>
+                    </div>
+                    <div class="method-card">
+                        <h4>📈 Technical Analysis</h4>
+                        <div class="weight-indicator" style="width: 30%;"></div>
+                        <p>Weight: 30%</p>
+                        <p>RSI, moving averages, momentum indicators, and volume analysis</p>
+                    </div>
+                    <div class="method-card">
+                        <h4>🤖 Machine Learning</h4>
+                        <div class="weight-indicator" style="width: 40%;"></div>
+                        <p>Weight: 40%</p>
+                        <p>Ensemble models combining Random Forest, XGBoost, and Linear Regression</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stocks-grid" id="stocks-container">
+                <!-- Stock cards will be inserted here -->
+            </div>
+            
+            <div class="disclaimer">
+                <h3>⚠️ Research & Educational Purpose</h3>
+                <p>This system implements academic research methodologies for educational purposes. The LLM sentiment analysis is based on peer-reviewed research. Not financial advice - always conduct your own research.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let sentimentData = null;
+
+        function createStockCard(symbol, data) {
+            const actionClass = `action-${data.action.toLowerCase().replace(' ', '-')}`;
+            
+            return `
+                <div class="stock-card">
+                    <div class="stock-header">
+                        <div class="stock-symbol">${symbol}</div>
+                        <div class="stock-price">
+                            <div class="current-price">$${data.current_price}</div>
+                            <div class="target-price">Target: $${data.target_price}</div>
+                        </div>
+                    </div>
+
+                    <div class="action-badge ${actionClass}">${data.action}</div>
+                    
+                    <div class="analysis-tabs">
+                        <div class="tab active" onclick="showTab('${symbol}', 'sentiment')">💬 Sentiment</div>
+                        <div class="tab" onclick="showTab('${symbol}', 'technical')">📊 Technical</div>
+                        <div class="tab" onclick="showTab('${symbol}', 'ml')">🤖 ML</div>
+                    </div>
+
+                    <div id="${symbol}-sentiment" class="tab-content active">
+                        <div class="sentiment-section">
+                            <h4>📰 News Sentiment Analysis</h4>
+                            <div class="metrics-grid">
+                                <div class="metric-item">
+                                    <div class="metric-value">${data.sentiment_analysis.aggregate_score}</div>
+                                    <div class="metric-label">Aggregate Score</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">${data.sentiment_analysis.weight * 100}%</div>
+                                    <div class="metric-label">Model Weight</div>
+                                </div>
+                            </div>
+                            
+                            <h5>Recent Headlines:</h5>
+                            <ul class="headlines-list">
+                                ${data.sentiment_analysis.recent_headlines.map(headline => {
+                                    const sentimentClass = headline.sentiment.toLowerCase();
+                                    const scoreClass = `score-${sentimentClass}`;
+                                    return `
+                                        <li class="headline-item headline-${sentimentClass}">
+                                            ${headline.text}
+                                            <span class="sentiment-score ${scoreClass}">
+                                                ${headline.sentiment} (${headline.score})
+                                            </span>
+                                        </li>
+                                    `;
+                                }).join('')}
+                            </ul>
+                            
+                            <p style="margin-top: 15px; font-style: italic; color: #666;">
+                                ${data.sentiment_analysis.methodology}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div id="${symbol}-technical" class="tab-content">
+                        <div class="sentiment-section">
+                            <h4>📈 Technical Indicators</h4>
+                            <div class="metrics-grid">
+                                <div class="metric-item">
+                                    <div class="metric-value">${data.technical_analysis.rsi}</div>
+                                    <div class="metric-label">RSI</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">${data.technical_analysis.momentum_5d}%</div>
+                                    <div class="metric-label">5-Day Momentum</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">${data.technical_analysis.volume_ratio}x</div>
+                                    <div class="metric-label">Volume Ratio</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">${data.technical_analysis.score}</div>
+                                    <div class="metric-label">Technical Score</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="${symbol}-ml" class="tab-content">
+                        <div class="sentiment-section">
+                            <h4>🤖 Machine Learning Prediction</h4>
+                            <div class="metrics-grid">
+                                <div class="metric-item">
+                                    <div class="metric-value">${data.ml_prediction.score}</div>
+                                    <div class="metric-label">ML Score</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">${data.ml_prediction.confidence}%</div>
+                                    <div class="metric-label">Confidence</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">${data.ml_prediction.weight * 100}%</div>
+                                    <div class="metric-label">Model Weight</div>
+                                </div>
+                            </div>
+                            <p style="margin-top: 15px; color: #666;">
+                                Model: ${data.ml_prediction.model}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 8px;">
+                        <strong>Research Note:</strong> ${data.research_note}
+                    </div>
+                </div>
+            `;
+        }
+
+        function showTab(symbol, tabName) {
+            // Hide all tabs for this symbol
+            const tabs = document.querySelectorAll(`#${symbol}-sentiment, #${symbol}-technical, #${symbol}-ml`);
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll(`.stock-card .tab`);
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(`${symbol}-${tabName}`).classList.add('active');
+            
+            // Activate corresponding button
+            event.target.classList.add('active');
+        }
+
+        async function loadSentimentData() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('content').style.display = 'none';
+
+            try {
+                const response = await fetch('/api/sentiment_predictions');
+                const data = await response.json();
+                
+                if (data.success) {
+                    sentimentData = data.data;
+                    displaySentimentData();
+                } else {
+                    throw new Error(data.error || 'Failed to load data');
+                }
+            } catch (error) {
+                console.error('Error loading sentiment data:', error);
+                loadDemoData();
+            }
+        }
+
+        function displaySentimentData() {
+            const stocksContainer = document.getElementById('stocks-container');
+            
+            const stockCards = Object.keys(sentimentData)
+                .map(symbol => createStockCard(symbol, sentimentData[symbol]))
+                .join('');
+            
+            stocksContainer.innerHTML = stockCards;
+            
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+        }
+
+        function loadDemoData() {
+            // Fallback demo data
+            sentimentData = {
+                'AAPL': {
+                    current_price: 231.59,
+                    target_price: 240.15,
+                    action: 'BUY',
+                    confidence: 'HIGH',
+                    sentiment_analysis: {
+                        aggregate_score: 0.4,
+                        weight: 0.3,
+                        recent_headlines: [
+                            {text: 'Apple reports record Q4 earnings', sentiment: 'POSITIVE', score: 0.8},
+                            {text: 'iPhone 16 sales exceed expectations', sentiment: 'POSITIVE', score: 0.7}
+                        ],
+                        methodology: 'LLM-based analysis (Demo Mode)'
+                    },
+                    technical_analysis: {
+                        rsi: 52.3,
+                        momentum_5d: 1.2,
+                        volume_ratio: 1.1,
+                        score: 0.2
+                    },
+                    ml_prediction: {
+                        score: 0.3,
+                        confidence: 78.5,
+                        weight: 0.4,
+                        model: 'Ensemble (Demo)'
+                    },
+                    research_note: 'Demo data showing positive sentiment analysis results.'
+                }
+            };
+            
+            displaySentimentData();
+        }
+
+        // Load data when page loads
+        window.addEventListener('load', loadSentimentData);
+    </script>
+</body>
+</html>

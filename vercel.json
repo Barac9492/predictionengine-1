@@ -10,6 +10,10 @@
       "dest": "/public/predictions.html"
     },
     {
+      "src": "/sentiment",
+      "dest": "/public/sentiment_dashboard.html"
+    },
+    {
       "src": "/api/live_data",
       "dest": "/api/live.py"
     },
@@ -28,6 +32,10 @@
     {
       "src": "/api/basic_live", 
       "dest": "/api/basic_live.py"
+    },
+    {
+      "src": "/api/sentiment_predictions",
+      "dest": "/api/sentiment_predictions.py"
     },
     {
       "src": "/active_trading_results_20250816_155531.json",
@@ -69,6 +77,10 @@
     },
     {
       "src": "api/basic_live.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "api/sentiment_predictions.py",
       "use": "@vercel/python"
     },
     {

@@ -34,6 +34,10 @@
       "dest": "/active_trading_results_20250816_155531.json"
     },
     {
+      "src": "/live_data.json",
+      "dest": "/live_data.json"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/index.py"
     },
@@ -77,6 +81,10 @@
     },
     {
       "src": "*.json",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "live_data.json",
       "use": "@vercel/static"
     }
   ]

@@ -1,0 +1,130 @@
+{
+  "AAPL": {
+    "timestamp": "2025-08-16T15:55:29.920956",
+    "current_recommendation": {
+      "timestamp": "2025-08-15 00:00:00 EDT",
+      "price": 231.59,
+      "action": "HOLD",
+      "confidence": "MEDIUM",
+      "rationale": "No clear signals. RSI=68.1, ML pred=-0.1%",
+      "target_price": 231.38,
+      "expected_return_pct": -0.09,
+      "market_metrics": {
+        "rsi": 68.1,
+        "rsi_signal": "Neutral",
+        "price_vs_ma20": "Above",
+        "momentum_5d_pct": 1.09,
+        "volume_ratio": 0.88,
+        "ml_prediction_pct": -0.09,
+        "ml_confidence_pct": 96.1
+      }
+    },
+    "backtest_summary": {
+      "total_return_pct": 0,
+      "outperformance_pct": 0,
+      "win_rate_pct": 0,
+      "total_trades": 0,
+      "sharpe_ratio": 0
+    },
+    "strategy": {
+      "name": "Active Momentum Trading",
+      "description": "\n    ACTIVE MOMENTUM TRADING STRATEGY\n    \n    \ud83c\udfaf STRATEGY OVERVIEW:\n    This strategy aims to capture momentum moves by buying strong stocks \n    and selling weak ones, with clear risk management rules.\n    \n    \ud83d\udcc8 BUY CONDITIONS (Enter Long Position):\n    1. Price > 20-day moving average (uptrend)\n    2. RSI between 45-65 (not overbought, but has momentum)  \n    3. 5-day momentum > 1% (recent strength)\n    4. ML model predicts >1% gain with >60% confidence\n    5. Volume > average (institutional interest)\n    \n    \ud83d\udcc9 SELL CONDITIONS (Exit Long Position):\n    1. RSI > 75 (overbought)\n    2. Price drops below 20-day MA (trend broken)\n    3. 5-day momentum < -2% (weakness)\n    4. ML model predicts <-1.5% loss with >60% confidence\n    5. Stop loss: -5% from entry\n    6. Take profit: +10% from entry\n    \n    \ud83d\udcb0 POSITION SIZING:\n    - Allocate 20% of capital per position\n    - Maximum 4 positions (80% invested, 20% cash)\n    - Rebalance weekly\n    "
+    }
+  },
+  "GOOGL": {
+    "timestamp": "2025-08-16T15:55:30.567758",
+    "current_recommendation": {
+      "timestamp": "2025-08-15 00:00:00 EDT",
+      "price": 203.9,
+      "action": "HOLD",
+      "confidence": "MEDIUM",
+      "rationale": "No clear signals. RSI=68.6, ML pred=-0.7%",
+      "target_price": 202.4,
+      "expected_return_pct": -0.74,
+      "market_metrics": {
+        "rsi": 68.6,
+        "rsi_signal": "Neutral",
+        "price_vs_ma20": "Above",
+        "momentum_5d_pct": 1.23,
+        "volume_ratio": 0.92,
+        "ml_prediction_pct": -0.74,
+        "ml_confidence_pct": 91.3
+      }
+    },
+    "backtest_summary": {
+      "total_return_pct": 2.83,
+      "outperformance_pct": -44.91,
+      "win_rate_pct": 100.0,
+      "total_trades": 3,
+      "sharpe_ratio": 1.216
+    },
+    "strategy": {
+      "name": "Active Momentum Trading",
+      "description": "\n    ACTIVE MOMENTUM TRADING STRATEGY\n    \n    \ud83c\udfaf STRATEGY OVERVIEW:\n    This strategy aims to capture momentum moves by buying strong stocks \n    and selling weak ones, with clear risk management rules.\n    \n    \ud83d\udcc8 BUY CONDITIONS (Enter Long Position):\n    1. Price > 20-day moving average (uptrend)\n    2. RSI between 45-65 (not overbought, but has momentum)  \n    3. 5-day momentum > 1% (recent strength)\n    4. ML model predicts >1% gain with >60% confidence\n    5. Volume > average (institutional interest)\n    \n    \ud83d\udcc9 SELL CONDITIONS (Exit Long Position):\n    1. RSI > 75 (overbought)\n    2. Price drops below 20-day MA (trend broken)\n    3. 5-day momentum < -2% (weakness)\n    4. ML model predicts <-1.5% loss with >60% confidence\n    5. Stop loss: -5% from entry\n    6. Take profit: +10% from entry\n    \n    \ud83d\udcb0 POSITION SIZING:\n    - Allocate 20% of capital per position\n    - Maximum 4 positions (80% invested, 20% cash)\n    - Rebalance weekly\n    "
+    }
+  },
+  "NVDA": {
+    "timestamp": "2025-08-16T15:55:31.307842",
+    "current_recommendation": {
+      "timestamp": "2025-08-15 00:00:00 EDT",
+      "price": 180.45,
+      "action": "SELL",
+      "confidence": "HIGH",
+      "rationale": "Sell condition: ML Bearish Signal",
+      "target_price": 174.49,
+      "expected_return_pct": -3.3,
+      "market_metrics": {
+        "rsi": 56.5,
+        "rsi_signal": "Neutral",
+        "price_vs_ma20": "Above",
+        "momentum_5d_pct": -1.23,
+        "volume_ratio": 1.01,
+        "ml_prediction_pct": -3.3,
+        "ml_confidence_pct": 84.7
+      }
+    },
+    "backtest_summary": {
+      "total_return_pct": 0.59,
+      "outperformance_pct": -244.9,
+      "win_rate_pct": 100.0,
+      "total_trades": 1,
+      "sharpe_ratio": 0.997
+    },
+    "strategy": {
+      "name": "Active Momentum Trading",
+      "description": "\n    ACTIVE MOMENTUM TRADING STRATEGY\n    \n    \ud83c\udfaf STRATEGY OVERVIEW:\n    This strategy aims to capture momentum moves by buying strong stocks \n    and selling weak ones, with clear risk management rules.\n    \n    \ud83d\udcc8 BUY CONDITIONS (Enter Long Position):\n    1. Price > 20-day moving average (uptrend)\n    2. RSI between 45-65 (not overbought, but has momentum)  \n    3. 5-day momentum > 1% (recent strength)\n    4. ML model predicts >1% gain with >60% confidence\n    5. Volume > average (institutional interest)\n    \n    \ud83d\udcc9 SELL CONDITIONS (Exit Long Position):\n    1. RSI > 75 (overbought)\n    2. Price drops below 20-day MA (trend broken)\n    3. 5-day momentum < -2% (weakness)\n    4. ML model predicts <-1.5% loss with >60% confidence\n    5. Stop loss: -5% from entry\n    6. Take profit: +10% from entry\n    \n    \ud83d\udcb0 POSITION SIZING:\n    - Allocate 20% of capital per position\n    - Maximum 4 positions (80% invested, 20% cash)\n    - Rebalance weekly\n    "
+    }
+  },
+  "TSLA": {
+    "timestamp": "2025-08-16T15:55:31.917487",
+    "current_recommendation": {
+      "timestamp": "2025-08-15 00:00:00 EDT",
+      "price": 330.56,
+      "action": "HOLD",
+      "confidence": "MEDIUM",
+      "rationale": "No clear signals. RSI=53.4, ML pred=1.4%",
+      "target_price": 335.12,
+      "expected_return_pct": 1.38,
+      "market_metrics": {
+        "rsi": 53.4,
+        "rsi_signal": "Neutral",
+        "price_vs_ma20": "Above",
+        "momentum_5d_pct": 0.28,
+        "volume_ratio": 0.83,
+        "ml_prediction_pct": 1.38,
+        "ml_confidence_pct": 89.3
+      }
+    },
+    "backtest_summary": {
+      "total_return_pct": -0.84,
+      "outperformance_pct": -38.32,
+      "win_rate_pct": 30.0,
+      "total_trades": 10,
+      "sharpe_ratio": -0.111
+    },
+    "strategy": {
+      "name": "Active Momentum Trading",
+      "description": "\n    ACTIVE MOMENTUM TRADING STRATEGY\n    \n    \ud83c\udfaf STRATEGY OVERVIEW:\n    This strategy aims to capture momentum moves by buying strong stocks \n    and selling weak ones, with clear risk management rules.\n    \n    \ud83d\udcc8 BUY CONDITIONS (Enter Long Position):\n    1. Price > 20-day moving average (uptrend)\n    2. RSI between 45-65 (not overbought, but has momentum)  \n    3. 5-day momentum > 1% (recent strength)\n    4. ML model predicts >1% gain with >60% confidence\n    5. Volume > average (institutional interest)\n    \n    \ud83d\udcc9 SELL CONDITIONS (Exit Long Position):\n    1. RSI > 75 (overbought)\n    2. Price drops below 20-day MA (trend broken)\n    3. 5-day momentum < -2% (weakness)\n    4. ML model predicts <-1.5% loss with >60% confidence\n    5. Stop loss: -5% from entry\n    6. Take profit: +10% from entry\n    \n    \ud83d\udcb0 POSITION SIZING:\n    - Allocate 20% of capital per position\n    - Maximum 4 positions (80% invested, 20% cash)\n    - Rebalance weekly\n    "
+    }
+  }
+}

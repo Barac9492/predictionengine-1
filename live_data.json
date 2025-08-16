@@ -6,15 +6,15 @@
       "timestamp": "2025-08-16T15:55:31.123456",
       "is_live": true,
       "quote": {
-        "current_price": 229.47,
-        "change_percent": -0.92,
+        "current_price": 214.79,
+        "change_percent": 5.85,
         "market_cap": 3487000000000,
         "volume": 42500000,
         "pe_ratio": 28.4
       },
       "current_recommendation": {
         "timestamp": "2025-08-16 15:55:31 UTC",
-        "price": 229.47,
+        "price": 214.79,
         "action": "HOLD",
         "confidence": "MEDIUM",
         "rationale": "Mixed signals: RSI neutral at 52.3, slight negative momentum",
@@ -47,15 +47,15 @@
       "timestamp": "2025-08-16T15:55:31.123456",
       "is_live": true,
       "quote": {
-        "current_price": 205.83,
-        "change_percent": 1.24,
+        "current_price": 195.81,
+        "change_percent": 0.59,
         "market_cap": 2540000000000,
         "volume": 28400000,
         "pe_ratio": 22.1
       },
       "current_recommendation": {
         "timestamp": "2025-08-16 15:55:31 UTC",
-        "price": 205.83,
+        "price": 195.81,
         "action": "BUY",
         "confidence": "HIGH",
         "rationale": "Strong buy signals: Price above MA, RSI 47.8, positive momentum 2.1%",
@@ -88,15 +88,15 @@
       "timestamp": "2025-08-16T15:55:31.123456",
       "is_live": true,
       "quote": {
-        "current_price": 182.65,
-        "change_percent": 2.47,
+        "current_price": 178.34,
+        "change_percent": 0.04,
         "market_cap": 4482000000000,
         "volume": 58900000,
         "pe_ratio": 65.7
       },
       "current_recommendation": {
         "timestamp": "2025-08-16 15:55:31 UTC",
-        "price": 182.65,
+        "price": 178.34,
         "action": "BUY",
         "confidence": "HIGH",
         "rationale": "Strong momentum: RSI 43.2, excellent 5-day momentum 3.4%",
@@ -129,15 +129,15 @@
       "timestamp": "2025-08-16T15:55:31.123456",
       "is_live": true,
       "quote": {
-        "current_price": 327.84,
-        "change_percent": -1.68,
+        "current_price": 318.17,
+        "change_percent": 3.06,
         "market_cap": 1048000000000,
         "volume": 71200000,
         "pe_ratio": 85.4
       },
       "current_recommendation": {
         "timestamp": "2025-08-16 15:55:31 UTC",
-        "price": 327.84,
+        "price": 318.17,
         "action": "SELL",
         "confidence": "MEDIUM",
         "rationale": "Sell signals: RSI overbought at 73.5, negative momentum",

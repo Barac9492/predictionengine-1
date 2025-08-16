@@ -11,12 +11,12 @@ from http.server import BaseHTTPRequestHandler
 
 TARGET_STOCKS = ['AAPL', 'GOOGL', 'NVDA', 'TSLA']
 
-# Base prices (approximate current market prices)
+# Base prices (updated August 16, 2025)
 BASE_PRICES = {
-    'AAPL': 231.59,
-    'GOOGL': 203.90,
-    'NVDA': 180.45,
-    'TSLA': 330.56
+    'AAPL': 214.79,
+    'GOOGL': 195.81,
+    'NVDA': 178.34,
+    'TSLA': 318.17
 }
 
 class handler(BaseHTTPRequestHandler):

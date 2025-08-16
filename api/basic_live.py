@@ -10,10 +10,10 @@ from datetime import datetime
 TARGET_STOCKS = ['AAPL', 'GOOGL', 'NVDA', 'TSLA']
 
 BASE_PRICES = {
-    'AAPL': 231.59,
-    'GOOGL': 203.90,
-    'NVDA': 180.45,
-    'TSLA': 330.56
+    'AAPL': 214.79,
+    'GOOGL': 195.81,
+    'NVDA': 178.34,
+    'TSLA': 318.17
 }
 
 def handler(request):

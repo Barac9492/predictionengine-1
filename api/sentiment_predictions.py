@@ -142,12 +142,12 @@ def generate_sentiment_prediction(symbol):
         action = "HOLD"
         confidence = "LOW"
     
-    # Base prices
+    # Base prices (updated August 16, 2025)
     base_prices = {
-        'AAPL': 231.59,
-        'GOOGL': 203.90,
-        'NVDA': 180.45,
-        'TSLA': 330.56
+        'AAPL': 214.79,
+        'GOOGL': 195.81,
+        'NVDA': 178.34,
+        'TSLA': 318.17
     }
     
     current_price = base_prices.get(symbol, 100) * (1 + random.uniform(-0.03, 0.03))

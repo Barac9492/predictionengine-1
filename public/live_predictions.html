@@ -528,17 +528,25 @@
 
         function createStockCard(symbol, data) {
             const current = data.current_recommendation;
-            const backtest = data.backtest_summary;
+            const backtest = data.backtest_summary || { total_trades: 0 };
             const metrics = current.market_metrics;
+            const isLive = data.is_live || false;
+            
+            // Get actual market change from quote if available
+            const marketChange = data.quote ? data.quote.change_percent : current.expected_return_pct;
 
             return `
                 <div class="stock-card">
                     <div class="stock-header">
-                        <div class="stock-symbol">${symbol}</div>
+                        <div class="stock-symbol">
+                            ${symbol}
+                            ${isLive ? '<span style="background: #10b981; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.6em; margin-left: 8px;">LIVE</span>' : ''}
+                        </div>
                         <div class="stock-price">
                             <div class="current-price">$${current.price.toFixed(2)}</div>
-                            <div class="price-change ${getChangeClass(current.expected_return_pct)}">
-                                ${current.expected_return_pct > 0 ? '+' : ''}${current.expected_return_pct.toFixed(1)}%
+                            <div class="price-change ${getChangeClass(marketChange)}">
+                                ${marketChange > 0 ? '+' : ''}${marketChange.toFixed(2)}%
+                                ${isLive ? ' today' : ' target'}
                             </div>
                         </div>
                     </div>
@@ -573,7 +581,7 @@
                         </p>
 
                         <div class="market-metrics">
-                            <h4>📊 Market Metrics</h4>
+                            <h4>📊 Market Metrics ${isLive ? '🔴' : ''}</h4>
                             <div class="metrics-grid">
                                 <div class="metric-item">
                                     <span class="metric-label">RSI:</span>
@@ -591,13 +599,33 @@
                                     <span class="metric-label">Volume Ratio:</span>
                                     <span class="metric-value">${metrics.volume_ratio.toFixed(2)}x</span>
                                 </div>
+                                ${isLive && data.quote ? `
+                                <div class="metric-item">
+                                    <span class="metric-label">Market Cap:</span>
+                                    <span class="metric-value">$${(data.quote.market_cap / 1e12).toFixed(2)}T</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">P/E Ratio:</span>
+                                    <span class="metric-value">${data.quote.pe_ratio ? data.quote.pe_ratio.toFixed(1) : 'N/A'}</span>
+                                </div>
+                                ` : ''}
                             </div>
                         </div>
                     </div>
 
                     <div class="backtest-section">
-                        <h3>📈 Strategy Backtesting Results</h3>
-                        ${backtest.total_trades > 0 ? `
+                        <h3>📈 ${isLive ? 'Live Analysis' : 'Strategy Backtesting Results'}</h3>
+                        ${isLive ? `
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 1.5em; margin-bottom: 10px;">🔴 LIVE MARKET DATA</div>
+                            <div style="opacity: 0.9;">
+                                Real-time prices • Fresh predictions • Current indicators
+                            </div>
+                            <div style="margin-top: 15px; font-size: 0.9em;">
+                                Data refreshes automatically every 5 minutes
+                            </div>
+                        </div>
+                        ` : backtest.total_trades > 0 ? `
                         <div class="backtest-grid">
                             <div class="backtest-metric">
                                 <div class="metric-value ${getChangeClass(backtest.total_return_pct)}">

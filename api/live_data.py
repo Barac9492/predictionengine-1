@@ -260,6 +260,17 @@ class LiveMarketAnalyzer:
                     'price': quote['current_price'],
                     **signal
                 },
+                'backtest_summary': {
+                    'total_return_pct': 0,
+                    'outperformance_pct': 0,
+                    'win_rate_pct': 0,
+                    'total_trades': 0,
+                    'sharpe_ratio': 0
+                },
+                'strategy': {
+                    'name': 'Active Momentum Trading (LIVE)',
+                    'description': 'Real-time analysis with live market data'
+                },
                 'is_live': True
             }
             

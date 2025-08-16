@@ -335,9 +335,9 @@ def lambda_handler(event, context):
         }
 
 # For Vercel
-def handler(request):
+def handler(event):
     """Vercel handler"""
-    return lambda_handler({}, {})
+    return lambda_handler(event, {})
 
 if __name__ == "__main__":
     # Test locally

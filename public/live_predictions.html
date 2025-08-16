@@ -732,52 +732,52 @@
             document.getElementById('loading').style.display = 'block';
             document.getElementById('content').style.display = 'none';
 
-            try {
-                // First try to fetch real-time data from API
-                console.log('Fetching live market data...');
-                const apiResponse = await fetch('/api/live_data');
-                
-                if (apiResponse.ok) {
-                    const apiData = await apiResponse.json();
-                    if (apiData.success) {
-                        console.log('Live API data received:', apiData);
-                        liveData = apiData.data;
-                        displayLiveData(true); // Mark as live
-                        return;
+            // Try multiple live API endpoints
+            const liveEndpoints = ['/api/live_data', '/api/live', '/api/mock_live'];
+            
+            for (const endpoint of liveEndpoints) {
+                try {
+                    console.log(`Trying live API: ${endpoint}`);
+                    const apiResponse = await fetch(endpoint);
+                    console.log(`${endpoint} response status:`, apiResponse.status);
+                    
+                    if (apiResponse.ok) {
+                        const apiData = await apiResponse.json();
+                        console.log(`${endpoint} data:`, apiData);
+                        
+                        if (apiData.success && apiData.data) {
+                            console.log('✅ Live API data received from:', endpoint);
+                            liveData = apiData.data;
+                            displayLiveData(true, endpoint.includes('mock') ? 'SIMULATED' : 'LIVE');
+                            return;
+                        }
                     }
+                } catch (error) {
+                    console.log(`${endpoint} failed:`, error.message);
+                    continue;
                 }
-                
-                // Fallback to stored results
-                console.log('API failed, trying stored results...');
+            }
+            
+            // If all live APIs fail, try stored results
+            try {
+                console.log('All live APIs failed, trying stored results...');
                 const fileResponse = await fetch('/active_trading_results_20250816_155531.json');
                 
                 if (fileResponse.ok) {
                     liveData = await fileResponse.json();
-                    displayLiveData(false); // Mark as historical
+                    displayLiveData(false, 'HISTORICAL');
                     return;
                 }
-                
-                throw new Error('Could not load any data');
-
             } catch (error) {
-                console.error('Error loading data:', error);
-                // Show error and load demo data
-                document.getElementById('loading').innerHTML = `
-                    <div class="error">
-                        <h3>❌ Could not load live data</h3>
-                        <p>API: ${error.message}. Loading demo data...</p>
-                        <button class="refresh-btn" onclick="loadLiveData()">🔄 Try Again</button>
-                    </div>
-                `;
-                
-                // Load demo data as fallback
-                setTimeout(() => {
-                    loadDemoData();
-                }, 2000);
+                console.log('Stored results failed:', error.message);
             }
+            
+            // Last resort: demo data
+            console.log('All data sources failed, loading demo data...');
+            loadDemoData();
         }
 
-        function displayLiveData(isLive = false) {
+        function displayLiveData(isLive = false, dataType = 'UNKNOWN') {
             if (!liveData) {
                 console.error('No live data available');
                 return;
@@ -790,17 +790,29 @@
             // Update last updated time
             const timestamps = Object.values(liveData).map(d => d.timestamp);
             const latestTimestamp = timestamps.sort().pop();
-            const dataType = isLive ? '🔴 LIVE Market Data' : '📊 Historical Analysis';
-            lastUpdatedElement.textContent = `Last Updated: ${formatTimestamp(latestTimestamp)} • ${dataType}`;
             
-            // Add live indicator
-            if (isLive) {
-                lastUpdatedElement.style.background = '#dcfce7';
-                lastUpdatedElement.style.color = '#16a34a';
+            let displayType, bgColor, textColor;
+            if (dataType === 'LIVE') {
+                displayType = '🔴 LIVE Market Data';
+                bgColor = '#dcfce7';
+                textColor = '#16a34a';
+            } else if (dataType === 'SIMULATED') {
+                displayType = '🟡 SIMULATED Live Data';
+                bgColor = '#fef3c7';
+                textColor = '#92400e';
+            } else if (dataType === 'HISTORICAL') {
+                displayType = '📊 Historical Analysis';
+                bgColor = '#e3f2fd';
+                textColor = '#1976d2';
             } else {
-                lastUpdatedElement.style.background = '#e3f2fd';
-                lastUpdatedElement.style.color = '#1976d2';
+                displayType = '📋 Demo Data';
+                bgColor = '#f3e8ff';
+                textColor = '#7c3aed';
             }
+            
+            lastUpdatedElement.textContent = `Last Updated: ${formatTimestamp(latestTimestamp)} • ${displayType}`;
+            lastUpdatedElement.style.background = bgColor;
+            lastUpdatedElement.style.color = textColor;
 
             // Create stock cards
             console.log('Creating cards for stocks:', Object.keys(liveData));

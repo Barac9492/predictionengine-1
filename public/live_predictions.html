@@ -106,7 +106,7 @@
         
         .stocks-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
             gap: 30px;
             margin-bottom: 40px;
         }
@@ -404,6 +404,12 @@
             background: #5a67d8;
         }
         
+        @media (max-width: 1200px) {
+            .stocks-grid {
+                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
             .stocks-grid {
                 grid-template-columns: 1fr;
@@ -797,9 +803,15 @@
             }
 
             // Create stock cards
-            stocksContainer.innerHTML = Object.keys(liveData)
-                .map(symbol => createStockCard(symbol, liveData[symbol]))
+            console.log('Creating cards for stocks:', Object.keys(liveData));
+            const stockCards = Object.keys(liveData)
+                .map(symbol => {
+                    console.log(`Creating card for ${symbol}:`, liveData[symbol]);
+                    return createStockCard(symbol, liveData[symbol]);
+                })
                 .join('');
+            console.log('Generated HTML length:', stockCards.length);
+            stocksContainer.innerHTML = stockCards;
 
             // Create summary
             summaryContainer.innerHTML = createSummaryCards(liveData);

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Live Data</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .stock-card { 
+            border: 1px solid #ccc; 
+            margin: 10px; 
+            padding: 20px; 
+            background: #f9f9f9;
+        }
+        .stocks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Live Data Debug</h1>
+    <button onclick="testAPI()">Test Live API</button>
+    <div id="results"></div>
+
+    <script>
+        async function testAPI() {
+            const results = document.getElementById('results');
+            results.innerHTML = 'Loading...';
+            
+            try {
+                // Test with local API
+                const response = await fetch('http://localhost:3000/api/live_data');
+                const data = await response.json();
+                
+                console.log('API Response:', data);
+                
+                if (data.success) {
+                    results.innerHTML = `
+                        <h2>API Success - ${Object.keys(data.data).length} stocks loaded</h2>
+                        <div class="stocks-grid">
+                            ${Object.keys(data.data).map(symbol => `
+                                <div class="stock-card">
+                                    <h3>${symbol} ${data.data[symbol].is_live ? 'LIVE' : ''}</h3>
+                                    <p>Price: $${data.data[symbol].current_recommendation.price}</p>
+                                    <p>Action: ${data.data[symbol].current_recommendation.action}</p>
+                                    <p>Change: ${data.data[symbol].quote ? data.data[symbol].quote.change_percent : 'N/A'}%</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <h3>Raw Data:</h3>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    results.innerHTML = `<h2>API Error</h2><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                results.innerHTML = `<h2>Fetch Error</h2><p>${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

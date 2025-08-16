@@ -732,8 +732,8 @@
             document.getElementById('loading').style.display = 'block';
             document.getElementById('content').style.display = 'none';
 
-            // Try multiple live API endpoints (basic first, then more complex)
-            const liveEndpoints = ['/api/basic_live', '/api/simple_live', '/api/mock_live', '/api/live', '/api/live_data'];
+            // Try multiple live API endpoints (lightweight first)
+            const liveEndpoints = ['/api/basic_live', '/api/sentiment_predictions'];
             
             for (const endpoint of liveEndpoints) {
                 try {

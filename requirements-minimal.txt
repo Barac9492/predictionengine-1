@@ -1,3 +1,2 @@
 # Minimal dependencies for Vercel deployment
-# Heavy ML libraries removed to avoid 250MB limit
 requests>=2.31.0

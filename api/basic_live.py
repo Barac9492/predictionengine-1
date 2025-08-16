@@ -5,7 +5,6 @@ Uses Vercel's function format instead of BaseHTTPRequestHandler
 
 import json
 import random
-import math
 from datetime import datetime
 
 TARGET_STOCKS = ['AAPL', 'GOOGL', 'NVDA', 'TSLA']

@@ -60,22 +60,6 @@
   ],
   "builds": [
     {
-      "src": "api/live.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "api/live_data.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "api/mock_live.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "api/simple_live.py",
-      "use": "@vercel/python"
-    },
-    {
       "src": "api/basic_live.py",
       "use": "@vercel/python"
     },
@@ -84,19 +68,11 @@
       "use": "@vercel/python"
     },
     {
-      "src": "api/index.py",
-      "use": "@vercel/python"
-    },
-    {
       "src": "public/**",
       "use": "@vercel/static"
     },
     {
       "src": "*.json",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "live_data.json",
       "use": "@vercel/static"
     }
   ]
